@@ -1,6 +1,6 @@
 import Hero from "components/hero"
 
-export default function About() {
+export default function Blog() {
   return (
     <Hero />
   )
