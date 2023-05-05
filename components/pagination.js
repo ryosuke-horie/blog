@@ -16,21 +16,17 @@ export default function Pagination({
         <ul className={styles.flexContainer}>
             {prevText && prevUrl && (
                 <li className={styles.prev}>
-                    <Link href={prevUrl}>
-                        <a className={styles.iconText}>
-                            <FontAwesomeIcon icon={faChevronLeft} color="var(--gray-25)" />
-                            <span>{prevText}</span>
-                        </a>
+                    <Link href={prevUrl} className={styles.iconText}>
+                        <FontAwesomeIcon icon={faChevronLeft} color="var(--gray-25)" />
+                        <span>{prevText}</span>
                     </Link>
                 </li>
             )}
             {nextText && nextUrl && (
                 <li className={styles.next}>
-                    <Link href={nextUrl}>
-                        <a className={styles.iconText}>
-                            <span>{nextText}</span>
-                            <FontAwesomeIcon icon={faChevronRight} color="var(--gray-25)" />
-                        </a>
+                    <Link href={nextUrl} className={styles.iconText}>
+                        <span>{nextText}</span>
+                        <FontAwesomeIcon icon={faChevronRight} color="var(--gray-25)" />
                     </Link>
                 </li>
             )}
