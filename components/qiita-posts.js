@@ -7,7 +7,7 @@ export default function QiitaPosts({ qiitaPosts }) {
         <div className={styles.gridContainer}>
             {qiitaPosts.map(({ title, url, updated_at }) => (
                 <article className={styles.post} key={title}>
-                    <Link href={url}><h2>{title}</h2></Link>
+                    <Link target="_blank" href={url}><h2>{title}</h2></Link>
                     <p><ConvertDate dateISO={updated_at} /></p>
                 </article>
             ))}
