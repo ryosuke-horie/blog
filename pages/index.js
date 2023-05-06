@@ -18,6 +18,7 @@ export default function Home({ posts, qiitaPosts }) {
       <Hero title="CUBE" subtitle="アプトプットしていくサイト" imageOn />
       <h2>Recent Qiita Posts</h2>
       <QiitaPosts qiitaPosts={qiitaPosts} />
+      <h2>Recent Other Blog Posts</h2>
       <Posts posts={posts} />
       <Pagination nextUrl="/blog" nextText="More Posts" />
     </Container>
