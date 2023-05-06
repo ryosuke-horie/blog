@@ -16,9 +16,10 @@ export default function Home({ posts, qiitaPosts }) {
     <Container>
       <Meta />
       <Hero title="CUBE" subtitle="アプトプットしていくサイト" imageOn />
-      <Pagination nextUrl="/blog" nextText="More Posts" />
+      <h2>Recent Qiita Posts</h2>
       <QiitaPosts qiitaPosts={qiitaPosts} />
       <Posts posts={posts} />
+      <Pagination nextUrl="/blog" nextText="More Posts" />
     </Container>
   )
 }
