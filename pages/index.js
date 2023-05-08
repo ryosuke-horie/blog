@@ -15,7 +15,7 @@ export default function Home({ posts, qiitaPosts }) {
   return (
     <Container>
       <Meta />
-      <Hero title="CUBE" subtitle="アプトプットしていくサイト" imageOn />
+      <Hero title="TECH" subtitle="For output tech" imageOn />
       <h2>Recent Qiita Posts</h2>
       <QiitaPosts qiitaPosts={qiitaPosts} />
       <h2>Recent Other Blog Posts</h2>
