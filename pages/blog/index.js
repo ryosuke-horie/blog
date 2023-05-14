@@ -24,21 +24,31 @@ export default function Blog({ posts, qiitaPosts }) {
 }
 
 export async function getStaticProps() {
-  const qiitaPosts = await getQiitaPosts(20)
-  const posts = await getAllPosts()
+  try {
+    const qiitaPosts = await getQiitaPosts(20)
+    const posts = await getAllPosts()
 
-  for (const post of posts) {
-    if (!post.hasOwnProperty('eyecatch')) {
-      post.eyecatch = eyecatchLocal
+    for (const post of posts) {
+      if (!post.hasOwnProperty('eyecatch')) {
+        post.eyecatch = eyecatchLocal
+      }
+      const { base64 } = await getPlaiceholder(post.eyecatch.url)
+      post.eyecatch.blurDataURL = base64
     }
-    const { base64 } = await getPlaiceholder(post.eyecatch.url)
-    post.eyecatch.blurDataURL = base64
-  }
 
-  return {
-    props: {
-      posts: posts,
-      qiitaPosts: qiitaPosts.data,
-    },
+    return {
+      props: {
+        posts: posts,
+        qiitaPosts: qiitaPosts,
+      },
+    }
+  } catch (error) {
+    console.error('データの取得中にエラーが発生しました:', error);
+    return {
+      props: {
+        posts: [],
+        qiitaPosts: [],
+      },
+    };
   }
 }
