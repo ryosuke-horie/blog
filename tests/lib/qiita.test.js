@@ -1,63 +1,121 @@
-// lib/qiita.jsのテストを作成する。
 import axios from 'axios';
 import { getQiitaPosts } from '../../lib/qiita';
+import dotenv from 'dotenv';
+
+// dotenvパッケージを使用して環境変数を読み込む
+dotenv.config({ path: '.env' });
 
 const API_KEY = process.env.QIITA_API;
 
-// axios モジュールをモックする
 jest.mock('axios');
 
-/**
- * APIリクエストが正常に行われることを確認する。
- */
 describe('lib/qiita.js', () => {
   describe('getQiitaPosts', () => {
-    it('should request to Qiita API', async () => {
-      // モックされたレスポンスを定義する
-      const mockResponse = { data: 'test' };
-      axios.get.mockResolvedValue(mockResponse); // モックされたレスポンスを返す
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
 
-      // 関数を呼び出す
+    it('APIリクエストが正しいURLで呼び出されることを確認', async () => {
+      const perPage = 4;
+      const expectedUrl = `https://qiita.com/api/v2/authenticated_user/items?page=1&per_page=${perPage}`;
+      const mockResponse = { data: 'test' };
+      axios.get.mockResolvedValue(mockResponse);
+
       const res = await getQiitaPosts();
 
-      // axios.get メソッドが呼び出されることを確認する。
-      expect(axios.get).toHaveBeenCalled();
-      
-      // axios.get メソッドが正しい引数で呼び出されることを確認する。
-      expect(axios.get).toHaveBeenCalledWith(
-        'https://qiita.com/api/v2/authenticated_user/items?page=1&per_page=4',
-        {
+      expect(axios.get).toHaveBeenCalledWith(expectedUrl, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + API_KEY,
+        },
+      });
+
+      expect(res).toEqual('test');
+    });
+
+    it('perPage 引数が正しく機能していること', async () => {
+      const perPage = 4;
+      const expectedUrl = `https://qiita.com/api/v2/authenticated_user/items?page=1&per_page=${perPage}`;
+      const mockPosts = [
+        { id: 1, title: '記事1' },
+        { id: 2, title: '記事2' },
+        { id: 3, title: '記事3' },
+        { id: 4, title: '記事4' },
+      ];
+
+      axios.get.mockResolvedValue({ data: mockPosts });
+
+      const result = await getQiitaPosts(perPage);
+
+      expect(axios.get).toHaveBeenCalledWith(expectedUrl, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + API_KEY,
+        },
+      });
+
+      expect(result).toEqual(mockPosts);
+    });
+
+    it('正常なレスポンスが返された場合の処理が正しいこと', async () => {
+      const perPage = 4;
+      const expectedUrl = `https://qiita.com/api/v2/authenticated_user/items?page=1&per_page=${perPage}`;
+      const mockPosts = [
+        { id: 1, title: '記事1' },
+        { id: 2, title: '記事2' },
+        { id: 3, title: '記事3' },
+        { id: 4, title: '記事4' },
+      ];
+
+      axios.get.mockResolvedValue({ data: mockPosts });
+
+      const result = await getQiitaPosts(perPage);
+
+      expect(axios.get).toHaveBeenCalledWith(expectedUrl, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + API_KEY,
+        },
+      });
+
+      expect(result).toEqual(mockPosts);
+
+      // レスポンスが正常であることを確認する
+      expect(result).toEqual(mockPosts);
+
+      // 返されたデータが適切に処理されていることを確認する
+      expect(Array.isArray(result)).toBe(true);
+      expect(result.length).toBe(perPage);
+    });
+
+    it('エラーが発生した場合の処理が正しいこと', async () => {
+      const perPage = 4;
+      const expectedUrl = `https://qiita.com/api/v2/authenticated_user/items?page=1&per_page=${perPage}`;
+      const errorMessage = 'リクエストが失敗しました。';
+      const errorCode = 500;
+
+      axios.get.mockRejectedValue({
+        response: {
+          data: {
+            message: errorMessage,
+            code: errorCode,
+          },
+        },
+      });
+
+      try {
+        await getQiitaPosts(perPage);
+        fail('エラーがスローされることを期待しましたが、スローされませんでした。');
+      } catch (error) {
+        expect(axios.get).toHaveBeenCalledWith(expectedUrl, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + API_KEY,
-          }
-        }
-      );
+          },
+        });
 
-      // 返されたデータが適切に処理されていることを確認する。
-      expect(res.data).toEqual('test');
+        expect(error.message).toBe('記事の取得に失敗しました。');
+      }
     });
   });
 });
-
-
-
-// デフォルトの記事数が正しく設定されていること:
-// perPage 引数を指定せずに関数を呼び出した場合、デフォルトの記事数が4であることを確認する。
-
-// perPage 引数が正しく機能していること:
-// perPage 引数に異なる値を指定して関数を呼び出し、指定した数の記事が返されることを確認する。
-
-// 正常なレスポンスが返された場合の処理が正しいこと:
-// レスポンスが正常であることを確認する。
-// 返されたデータが適切に処理されていることを確認する。
-// 必要な情報が取得できていることを確認する。
-
-// エラーが発生した場合の処理が正しいこと:
-// リクエストが失敗した場合にエラーハンドリングが行われていることを確認する。
-// エラーレスポンスが適切に処理されていることを確認する。
-// 適切なエラーメッセージやエラーコードが返されていることを確認する。
-
-// 環境変数 QIITA_API の設定が正しいこと:
-// API_KEY 変数が環境変数から正しく読み込まれていることを確認する。
-// 環境変数が設定されていない場合に適切なエラーハンドリングが行われていることを確認する。
