@@ -1,10 +1,10 @@
-import styles from "styles/logo.module.css"
-import Link from "next/link"
+import styles from "styles/logo.module.css";
+import Link from "next/link";
 
 export default function Logo({ boxOn = false }) {
-    return (
-        <Link href="/" className={boxOn ? styles.box : styles.basic}>
-            ry-tech
-        </Link>
-    )
+  return (
+    <Link href="/" className={boxOn ? styles.box : styles.basic}>
+      ry-tech
+    </Link>
+  );
 }
