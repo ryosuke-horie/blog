@@ -1,7 +1,7 @@
-import styles from 'styles/post-categories.module.css'
-import Link from 'next/link'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen } from '@fortawesome/free-regular-svg-icons'
+import styles from "styles/post-categories.module.css";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFolderOpen } from "@fortawesome/free-regular-svg-icons";
 
 export default function PostCategories({ categories }) {
   return (
@@ -13,12 +13,10 @@ export default function PostCategories({ categories }) {
       <ul className={styles.list}>
         {categories.map(({ name, slug }) => (
           <li key={slug}>
-            <Link href={`/blog/category/${slug}`}>
-              {name}
-            </Link>
+            <Link href={`/blog/category/${slug}`}>{name}</Link>
           </li>
         ))}
       </ul>
     </div>
-  )
+  );
 }

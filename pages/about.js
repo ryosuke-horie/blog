@@ -1,16 +1,16 @@
-import Meta from 'components/meta'
-import Container from 'components/container'
-import Hero from 'components/hero'
-import PostBody from 'components/post-body'
-import Contact from 'components/contact'
+import Meta from "components/meta";
+import Container from "components/container";
+import Hero from "components/hero";
+import PostBody from "components/post-body";
+import Contact from "components/contact";
 import {
   TwoColumn,
   TwoColumnMain,
   TwoColumnSidebar,
-} from 'components/two-column'
-import Accordion from 'components/accordion'
-import Image from 'next/image'
-import eyecatch from 'images/about.jpg'
+} from "components/two-column";
+import Accordion from "components/accordion";
+import Image from "next/image";
+import eyecatch from "images/about.jpg";
 
 export default function About() {
   return (
@@ -49,33 +49,34 @@ export default function About() {
               生成系AIの登場によって技術の学習のハードルが下がったことをきっかけに、フルスタックなエンジニアになりたいと思い、AWSをメインにインフラ系の学習やReact,Next.jsを採用したフロントエンド技術を学習しています。
             </p>
             <p>
-            学習スタイルとして、ハードルの低い教材から始め、簡単なアプリケーションを開発し、その後記事としてアウトプットするようにしています。
+              学習スタイルとして、ハードルの低い教材から始め、簡単なアプリケーションを開発し、その後記事としてアウトプットするようにしています。
               Qiitaよりも気軽にアウトプットする機会を増やすために、このブログを開発しました。
             </p>
             <h3>技術スタック</h3>
-              <table>
-                <tr>
-                  <th>フロントエンド</th>
-                  <td>JavaScript, Typescrit, React, Next.js, CSS</td>
-                </tr>
-                <tr>
-                  <th>バックエンド</th>
-                  <td>PHP, Laravel, CakePHP, Python, Typescript</td>
-                </tr>
-                <tr>
-                  <th>インフラ(クラウド)</th>
-                  <td>AWS</td>
-                </tr>
-                <tr>
-                  <th>保有資格</th>
-                  <td>AWS CLF, SAA認定</td>
-                </tr>
-              </table>
+            <table>
+              <tr>
+                <th>フロントエンド</th>
+                <td>JavaScript, Typescrit, React, Next.js, CSS</td>
+              </tr>
+              <tr>
+                <th>バックエンド</th>
+                <td>PHP, Laravel, CakePHP, Python, Typescript</td>
+              </tr>
+              <tr>
+                <th>インフラ(クラウド)</th>
+                <td>AWS</td>
+              </tr>
+              <tr>
+                <th>保有資格</th>
+                <td>AWS CLF, SAA認定</td>
+              </tr>
+            </table>
 
             <h2>FAQ</h2>
             <Accordion heading="注力していること">
               <p>
-                フルスタックにふるまっていけるようにクラウド技術の習得に力を入れています。AWS SAP認定試験の学習と、実際に個人サービスの構築をして学習に力を入れています。
+                フルスタックにふるまっていけるようにクラウド技術の習得に力を入れています。AWS
+                SAP認定試験の学習と、実際に個人サービスの構築をして学習に力を入れています。
               </p>
             </Accordion>
             <Accordion heading="キャリアのビジョンについて">
@@ -92,5 +93,5 @@ export default function About() {
         </TwoColumnSidebar>
       </TwoColumn>
     </Container>
-  )
+  );
 }
