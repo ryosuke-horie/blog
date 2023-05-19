@@ -27,7 +27,7 @@ export default function Accordion({ heading, children }) {
           "--text-height": refText.current
             ? `${refText.current.scrollHeight}px`
             : "0px",
-        }}
+        } as React.CSSProperties}
       >
         <div className={styles.textInner}>{children}</div>
       </div>
