@@ -38,8 +38,8 @@ export default function Meta({
 
   // OGP画像
   const img = pageImg || siteImg.src;
-  const imgW :any = pageImgW || siteImg.width;
-  const imgH :any = pageImgH || siteImg.height;
+  const imgW: any = pageImgW || siteImg.width;
+  const imgH: any = pageImgH || siteImg.height;
   const imgUrl = img.startsWith("https") ? img : `${siteUrl}${img}`;
 
   return (

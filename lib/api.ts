@@ -53,7 +53,7 @@ export async function getAllPosts(limit: number = 100): Promise<any> {
  * @param {number} limit デフォルトは100件
  * @returns
  */
-export async function getAllCategories(limit:number = 100): Promise<any> {
+export async function getAllCategories(limit: number = 100): Promise<any> {
   try {
     const categories = await client.get({
       endpoint: "categories",
@@ -69,7 +69,10 @@ export async function getAllCategories(limit:number = 100): Promise<any> {
   }
 }
 
-export async function getAllPostsByCategory(catID : string, limit: number = 100): Promise<any> {
+export async function getAllPostsByCategory(
+  catID: string,
+  limit: number = 100
+): Promise<any> {
   try {
     const posts = await client.get({
       endpoint: "blog",
