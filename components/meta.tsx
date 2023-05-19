@@ -9,13 +9,23 @@ const { siteTitle, siteDesc, siteUrl, siteLocale, siteType, siteIcon } =
 // 汎用OGP画像
 import siteImg from "images/ogp.jpg";
 
+// 型定義
+type Props = {
+  pageTitle?: string;
+  pageDesc?: string;
+  pageImg?: string;
+  pageImgW?: number;
+  pageImgH?: number;
+};
+
+// 型定義を利用してMetaコンポーネントを再作成する。
 export default function Meta({
   pageTitle,
   pageDesc,
   pageImg,
   pageImgW,
   pageImgH,
-}) {
+}: Props) {
   // ページのタイトル
   const title = pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle;
 
@@ -28,8 +38,8 @@ export default function Meta({
 
   // OGP画像
   const img = pageImg || siteImg.src;
-  const imgW = pageImgW || siteImg.width;
-  const imgH = pageImgH || siteImg.height;
+  const imgW: any = pageImgW || siteImg.width;
+  const imgH: any = pageImgH || siteImg.height;
   const imgUrl = img.startsWith("https") ? img : `${siteUrl}${img}`;
 
   return (

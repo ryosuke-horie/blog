@@ -1,11 +1,11 @@
 import { createClient } from "microcms-js-sdk";
 
 export const client = createClient({
-  serviceDomain: process.env.SERVICE_DOMAIN,
-  apiKey: process.env.API_KEY,
+  serviceDomain: process.env.SERVICE_DOMAIN as string,
+  apiKey: process.env.API_KEY as string,
 });
 
-export async function getPostBySlug(slug) {
+export async function getPostBySlug(slug: string): Promise<any> {
   try {
     const post = await client.get({
       endpoint: "blog",
@@ -18,7 +18,7 @@ export async function getPostBySlug(slug) {
   }
 }
 
-export async function getAllSlugs(limit = 100) {
+export async function getAllSlugs(limit: number = 100): Promise<any> {
   try {
     const slugs = await client.get({
       endpoint: "blog",
@@ -31,7 +31,7 @@ export async function getAllSlugs(limit = 100) {
   }
 }
 
-export async function getAllPosts(limit = 100) {
+export async function getAllPosts(limit: number = 100): Promise<any> {
   try {
     const posts = await client.get({
       endpoint: "blog",
@@ -53,7 +53,7 @@ export async function getAllPosts(limit = 100) {
  * @param {number} limit デフォルトは100件
  * @returns
  */
-export async function getAllCategories(limit = 100) {
+export async function getAllCategories(limit: number = 100): Promise<any> {
   try {
     const categories = await client.get({
       endpoint: "categories",
@@ -69,7 +69,10 @@ export async function getAllCategories(limit = 100) {
   }
 }
 
-export async function getAllPostsByCategory(catID, limit = 100) {
+export async function getAllPostsByCategory(
+  catID: string,
+  limit: number = 100
+): Promise<any> {
   try {
     const posts = await client.get({
       endpoint: "blog",
