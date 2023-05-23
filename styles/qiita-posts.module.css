@@ -1,41 +1,41 @@
 .gridContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-jump);
-    margin-top: var(--space-xs);
-    margin-bottom: var(--space-lg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-jump);
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-lg);
 }
 
 /* カード風のデザインを実装 */
 .post {
-    border-radius: 0.5em;
-    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
-    padding: var(--space-sm);
-    background-color: var(--color-white);
-    transition: box-shadow 0.2s ease-in-out;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
+  padding: var(--space-sm);
+  background-color: var(--color-white);
+  transition: box-shadow 0.2s ease-in-out;
 }
 
 /* スマホの場合は１枚ずつ縦並びに修正 */
 @media (max-width: 600px) {
-    .gridContainer {
-        grid-template-columns: 1fr;
-    }
+  .gridContainer {
+    grid-template-columns: 1fr;
+  }
 }
 
 .post h2 {
-    margin-top: 0.5em;
-    font-size: var(--small-heading3);
-    font-weight: bold;
+  margin-top: 0.5em;
+  font-size: var(--small-heading3);
+  font-weight: bold;
 }
 
 .post p {
-    margin-top: 0.5em;
-    font-size: var(--small-text);
-    /* 小さくする */
-    font-size: 0.8em;
+  margin-top: 0.5em;
+  font-size: var(--small-text);
+  /* 小さくする */
+  font-size: 0.8em;
 }
 
 .post figure {
-    position: relative;
-    aspect-ratio: 16/9;
+  position: relative;
+  aspect-ratio: 16/9;
 }
