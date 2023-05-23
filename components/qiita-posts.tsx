@@ -1,4 +1,4 @@
-import styles from "styles/posts.module.css";
+import styles from "styles/qiita-posts.module.css";
 import Link from "next/link";
 import ConvertDate from "./convert-date";
 
@@ -9,10 +9,10 @@ export default function QiitaPosts({ qiitaPosts }) {
         <article className={styles.post} key={title}>
           <Link target="_blank" href={url}>
             <h2>{title}</h2>
+            <p>
+              最終更新日：<ConvertDate dateISO={updated_at} />
+            </p>
           </Link>
-          <p>
-            <ConvertDate dateISO={updated_at} />
-          </p>
         </article>
       ))}
     </div>
