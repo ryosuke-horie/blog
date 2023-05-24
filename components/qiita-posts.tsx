@@ -10,7 +10,8 @@ export default function QiitaPosts({ qiitaPosts }) {
           <Link target="_blank" href={url}>
             <h2>{title}</h2>
             <p>
-              最終更新日：<ConvertDate dateISO={updated_at} />
+              最終更新日：
+              <ConvertDate dateISO={updated_at} />
             </p>
           </Link>
         </article>
