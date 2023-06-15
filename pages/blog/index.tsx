@@ -41,6 +41,7 @@ export async function getStaticProps() {
         posts: posts,
         qiitaPosts: qiitaPosts,
       },
+      revalidate: 60 * 60 * 24, // 24時間ごとに再生成する
     };
   } catch (error) {
     console.error("データの取得中にエラーが発生しました:", error);
