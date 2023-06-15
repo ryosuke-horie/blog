@@ -114,5 +114,6 @@ export async function getStaticProps(context) {
       prevPost: prevPost,
       nextPost: nextPost,
     },
+    revalidate: 60 * 60 * 24, // 24時間ごとに再生成する
   };
 }
