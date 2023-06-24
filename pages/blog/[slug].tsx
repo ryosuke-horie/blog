@@ -113,6 +113,6 @@ export async function getStaticProps(context) {
       description: description,
       prevPost: prevPost,
       nextPost: nextPost,
-    }
+    },
   };
 }
