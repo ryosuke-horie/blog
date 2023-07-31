@@ -14,7 +14,7 @@ export default function Blog({ posts, qiitaPosts }) {
   return (
     <Container>
       <Meta pageTitle="ブログ" pageDesc="ブログの記事一覧" />
-      <Hero title="Blog" subtitle=''/>
+      <Hero title="Blog" subtitle="" />
       {/* <Hero title="Blog" subtitle="Recent Posts" /> */}
       <h2>Qiita Posts</h2>
       <QiitaPosts qiitaPosts={qiitaPosts} />
