@@ -15,7 +15,6 @@ export default function Blog({ posts, qiitaPosts }) {
     <Container>
       <Meta pageTitle="ブログ" pageDesc="ブログの記事一覧" />
       <Hero title="Blog" subtitle="" />
-      {/* <Hero title="Blog" subtitle="Recent Posts" /> */}
       <h2>Qiita Posts</h2>
       <QiitaPosts qiitaPosts={qiitaPosts} />
       <h2>Other Blog Posts</h2>
@@ -42,7 +41,6 @@ export async function getStaticProps() {
         posts: posts,
         qiitaPosts: qiitaPosts,
       },
-      revalidate: 60 * 60 * 24, // 24時間ごとに再生成する
     };
   } catch (error) {
     console.error("データの取得中にエラーが発生しました:", error);
