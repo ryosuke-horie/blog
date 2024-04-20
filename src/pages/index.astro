@@ -6,45 +6,68 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
+			<h1>Ryosuke Horie</h1>
+			<h2>About Me</h2>
+            <p>
+                Webエンジニアとして働いています。マミヤITソリューションズ株式会社に所属。
 			</p>
 			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
+                PHP, Laravelを中心にインフラ～フロントエンドの構築・開発タスクを担当。
+                要件定義から設計、戦略まで考えられるようなエンジニアとしてリードできるなりたくて勉強中。
 			</p>
 			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+                好きな技術はPHP, Laravel, AWS。
+            </p>    
+            <p>
+                最近興味があるのは、DB設計、サーバレス、TypeScript、Go、DevOps。
+            </p>
+            <p>
+                趣味でボクシング・キックボクシングもやってます。いつかその話も...
+            </p>
+
+            <h2>Links</h2>
+            <ul>
+                <li>
+                    <a href="https://github.com/ryosuke-horie">
+                        Github
+                    </a>
+                    <span> - 基本プライベートリポジトリです...</span>
+                </li>
+                <li>
+                    <a href="https://qiita.com/ryosuke-horie">Qiita</a>
+                    <span> - 技術的な話をかく</span>
+                </li>
+                <li>
+                    <a href="https://zenn.dev/ryosuke_horie">Zenn</a>
+                    <span> - 気分でこっちに技術的な話を書く時も...</span>
+                </li>
+                <li>
+                    <a href="https://twitter.com/ryosuke_314_">Twitter</a>
+                    <span> - たまに個人開発とかをつぶやく</span>
+                </li>
+            </ul>
 		</main>
 		<Footer />
 	</body>
+    <style>
+        h1 {
+            font-size: 1rem;
+        }
+        h2 {
+            font-size: 2rem;
+        }
+        p {
+            font-size : 1rem;
+        }
+        li {
+            font-size: 1rem;
+        }
+    </style>
 </html>
