@@ -3,6 +3,6 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://ryosuke-horie.pages.dev.com',
+	site: 'https://ryosuke-horie.pages.dev',
 	integrations: [sitemap()],
 });
