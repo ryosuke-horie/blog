@@ -7,67 +7,83 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 <!doctype html>
 <html lang="ja">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>Ryosuke Horie</h1>
-			<h2>About Me</h2>
-            <p>
-                Webエンジニアとして働いています。マミヤITソリューションズ株式会社に所属。
-			</p>
-			<p>
-                PHP, Laravelを中心にインフラ～フロントエンドの構築・開発タスクを担当。
-                要件定義から設計、戦略まで考えられるようなエンジニアとしてリードできるなりたくて勉強中。
-			</p>
-			<p>
-                好きな技術はPHP, Laravel, AWS。
-            </p>    
-            <p>
-                最近興味があるのは、DB設計、サーバレス、TypeScript、Go、DevOps。
-            </p>
-            <p>
-                趣味でボクシング・キックボクシングもやってます。いつかその話も...
-            </p>
+  <head>
+  	<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+  	<Header />
+  	<main>
+        <div class="hero">
+            <img src="/hero.webp">
+        </div>
+  		<div class="profile">
+  			<img class="profile-image" src="/logo.webp" alt="Profile Image">
+  			<h1 class="profile-name">Ryosuke Horie</h1>
+  		</div>
+  		<h2 class="section-title">About Me</h2>
+  		<p class="text">
+  			Webエンジニアとして働いています。マミヤITソリューションズ株式会社に所属。
+  		</p>
+  		<p class="text">
+  			PHP, Laravelを中心にインフラ～フロントエンドの構築・開発タスクを担当。
+  			要件定義から設計、戦略まで考えられるようなエンジニアとしてリードできるなりたくて勉強中。
+  		</p>
+  		<p class="text">
+  			好きな技術はPHP, Laravel, AWS。
+  		</p>
+  		<p class="text">
+  			最近興味があるのは、DB設計、サーバレス、TypeScript、Go、DevOps。
+  		</p>
+  		<p class="text">
+  			趣味でボクシング・キックボクシングもやってます。いつかその話も...
+  		</p>
 
-            <h2>Links</h2>
-            <ul>
-                <li>
-                    <a href="https://github.com/ryosuke-horie">
-                        Github
-                    </a>
-                    <span> - 基本プライベートリポジトリです...</span>
-                </li>
-                <li>
-                    <a href="https://qiita.com/ryosuke-horie">Qiita</a>
-                    <span> - 技術的な話をかく</span>
-                </li>
-                <li>
-                    <a href="https://zenn.dev/ryosuke_horie">Zenn</a>
-                    <span> - 気分でこっちに技術的な話を書く時も...</span>
-                </li>
-                <li>
-                    <a href="https://twitter.com/ryosuke_314_">Twitter</a>
-                    <span> - たまに個人開発とかをつぶやく</span>
-                </li>
-            </ul>
-		</main>
-		<Footer />
-	</body>
-    <style>
-        h1 {
-            font-size: 1rem;
-        }
-        h2 {
-            font-size: 2rem;
-        }
-        p {
-            font-size : 1rem;
-        }
-        li {
-            font-size: 1rem;
-        }
-    </style>
+  		<h2 class="section-title">Links</h2>
+  		<ul>
+  			<li class="list-item">
+  				<a href="https://github.com/ryosuke-horie">Github</a>
+  				<span> - 基本プライベートリポジトリです...</span>
+  			</li>
+  			<li class="list-item">
+  				<a href="https://qiita.com/ryosuke-horie">Qiita</a>
+  				<span> - 技術的な話をかく</span>
+  			</li>
+  			<li class="list-item">
+  				<a href="https://zenn.dev/ryosuke_horie">Zenn</a>
+  				<span> - 気分でこっちに技術的な話を書く時も...</span>
+  			</li>
+  			<li class="list-item">
+  				<a href="https://twitter.com/ryosuke_314_">Twitter</a>
+  				<span> - たまに個人開発とかをつぶやく</span>
+  			</li>
+  		</ul>
+  	</main>
+  	<Footer />
+  </body>
+<style>
+   .profile {
+       display: flex;
+       align-items: center;
+   }
+   .profile-image {
+       width: 2em;
+       height: 2em;
+       border-radius: 50%;
+       margin-right: 0.5em;
+   }
+   .profile-name {
+       font-size: 1rem;
+       line-height: 1;
+       margin: 0;
+   }
+   .section-title {
+       font-size: 2rem;
+   }
+   .text {
+       font-size: 1rem;
+   }
+   .list-item {
+       font-size: 1rem;
+   }
+</style>
 </html>
