@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/BlogPost.astro';
+---
+
+<Layout
+	title="今まで個人で作ったもの"
+	description="今まで個人で作ったものについて紹介します。"
+	pubDate={new Date('May 01 2024')}
+	heroImage="/blog-placeholder-about.jpg"
+>
+	<h2>個人ブログ(3作目)</h2>
+	<p>
+		このブログサイトです。Astroで構築し、Headless CMSとしてFront Matterを使用しています。
+        Cloudflare Pagesでホスティングしています。
+	</p>
+    <p>
+        QiitaやZennほど見られやすい場所よりも気軽に投稿ができる場所が欲しかったので、自分で作りました。
+        こだわりとしてMarkdownで記事が書きたかったので上記の技術構成を選択しています。
+    </p>
+	<img src="/blog_screenshot.jpg" alt="My Blog Screenshot" />
+	<p>
+		<a href="https://github.com/ryosuke-horie/tech-blog-v3" target="_blank">GitHubリポジトリ</a>
+	</p>
+    <p>
+        このブログサイトは3作目です。
+    </p>
+    <h3>
+        <a href="https://rytech-blog.vercel.app" target="_blank">1作目</a> | <a href="https://github.com/ryosuke-horie/blog">GitHub</a>
+    </h3>
+    <p>
+        1作目はNextjsで作成し、Vercelでホスティングしていました。
+        Headless CMSにMicro CMSを採用しています。
+    </p>
+    <h3>
+        <a href="https://ryo-tech-blog.vercel.app" target="_blank">2作目</a> | <a href="https://github.com/ryosuke-horie/tech-blog-notion-cms">GitHub</a>
+    </h3>
+    <p>
+        2作目もNextjsで作成し、Vercelでホスティングしていました。
+        Headless CMSにNotionを採用し、Notion APIを使用して記事を取得していました。
+    </p>
+
+    <hr>
+
+	<h2>社内向け資格取得情報共有サイト</h2>
+    <p>
+        社内向けの資格取得情報共有サイトです。社内で資格を取得した人が情報を共有するためのサイトです。
+        このサイトは社内の情報共有を目的としているため、社内のネットワーク内でのみアクセスできるようにしていました。
+        DBにPlanetScaleを採用していましたが、2024年4月に無料枠が終了したため、リプレイス中です。
+    </p>
+    <img src="/sikaku_screenshot.jpg" alt="Certification Screenshot" />
+    <h3>技術構成</h3>
+    <ul>
+        <li>Next.js(v13)</li>
+        <li>TypeScript</li>
+        <li>Tailwind CSS</li>
+        <li>vercel</li>
+        <li>prisma</li>
+        <li>PlanetScale</li>
+    </ul>
+</Layout>
