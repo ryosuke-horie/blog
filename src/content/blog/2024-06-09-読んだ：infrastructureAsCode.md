@@ -5,7 +5,7 @@ updatedDate: 2024-06-09T10:55:16.666Z
 type: blog
 description: IaC関連の書籍を読みました。整理。
 slug: read-iac
-heroImage: /iac.webp
+heroImage: /Iac.webp
 ---
 
 ## トピック
