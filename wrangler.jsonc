@@ -2,6 +2,6 @@
     "name": "blog",
     "compatibility_date": "2025-04-04",
     "assets": {
-        "directory": "./.astro"
+        "directory": "./dist"
     }
 }
