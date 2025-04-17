@@ -56,30 +56,30 @@ h5,
 h6 {
 	margin: 0 0 0.5rem 0;
 	color: rgb(var(--black));
-	line-height: 1.2;
+line-height: 1.2;
 }
 h1 {
-	font-size: 3.052em;
+font-size: 1.953em; /* 旧h3サイズ */
 }
 h2 {
-	font-size: 2.441em;
+font-size: 1.563em; /* 旧h4サイズ */
 }
 /* blogポスト用 */
 .prose h2 {
   font-size: 1.5rem;
 }
 h3 {
-	font-size: 1.953em;
+font-size: 1.25em; /* 旧h5サイズ */
 }
 /* blogポスト用 */
 .prose h3 {
   font-size: 1.25rem;
 }
 h4 {
-	font-size: 1.563em;
+font-size: 1.0em; /* 基本サイズと同じ */
 }
 h5 {
-	font-size: 1.25em;
+font-size: 0.875em; /* 基本サイズより少し小さい */
 }
 strong,
 b {
@@ -109,12 +109,23 @@ table {
 }
 img {
 	max-width: 100%;
-	height: auto;
-	border-radius: 8px;
+height: auto;
+border-radius: 8px;
 }
+
+/* blogポスト内の画像サイズ調整 */
+.prose img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 80%; /* 最大幅を80%に制限 */
+  height: auto; /* 縦横比を維持 */
+  border-radius: 8px; /* 既存の角丸を維持 */
+}
+
 code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
+padding: 2px 5px;
+background-color: rgb(var(--gray-light));
 	border-radius: 2px;
 }
 pre {
