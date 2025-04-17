@@ -28,32 +28,39 @@ const posts = (await getCollection("blog")).sort(
                 padding: 0;
             }
             ul li {
-                width: calc(50% - 1rem);
+                /* 3列表示になるように幅を調整 (gap: 2rem を考慮) */
+                width: calc(33.33% - 1.34rem);
             }
             ul li * {
                 text-decoration: none;
                 transition: 0.2s ease;
             }
-            ul li:first-child {
-                width: 100%;
+            /* ul li:first-child {
+                width: 100%;  <- 3列表示のため削除
                 margin-bottom: 1rem;
                 text-align: center;
-            }
+            } */
             ul li:first-child img {
-                width: 100%;
+                /* width: 100%; <- first-childの特別扱いをやめるため削除しても良いが、影響なければ残す */
             }
-            ul li:first-child .title {
-                font-size: 2.369rem;
-            }
+            /* ul li:first-child .title {
+                font-size: 2.369rem; <- 最初の投稿のタイトルを特別扱いしないため削除
+            } */
             ul li img {
+                height: 150px; /* 固定の高さを設定 */
+                object-fit: cover; /* 比率を保ちつつ領域を埋める */
                 margin-bottom: 0.5rem;
                 border-radius: 12px;
+                flex-shrink: 0; /* 画像が縮まないようにする */
             }
             ul li a {
-                display: block;
+                display: flex; /* Flexコンテナにする */
+                flex-direction: column; /* 子要素を縦に並べる */
+                height: 100%; /* liの高さいっぱいに広げる */
             }
             .title {
-                margin: 0;
+                flex-grow: 1; /* タイトル部分が残りのスペースを埋める */
+                margin: 0 0 0.25rem 0; /* 下マージンを少し追加 */
                 color: rgb(var(--black));
                 line-height: 1;
             }
@@ -79,9 +86,9 @@ const posts = (await getCollection("blog")).sort(
                 ul li:first-child {
                     margin-bottom: 0;
                 }
-                ul li:first-child .title {
-                    font-size: 1.563em;
-                }
+                /* ul li:first-child .title {
+                    font-size: 1.563em; <- モバイルでも最初の投稿のタイトルを特別扱いしないため削除
+                } */
             }
         </style>
     </head>
