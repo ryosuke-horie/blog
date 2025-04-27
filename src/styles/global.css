@@ -4,17 +4,58 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
+/*
+  フォントサイズの調整システム
+  
+  このサイトでは、CSS変数 --content-scale を使用してフォントサイズを管理しています。
+  
+  仕組み：
+  1. :root で --content-scale: 1 をデフォルト値として設定
+  2. .prose クラス（ブログ記事）では --content-scale: 0.9 を設定し、全体的に90%サイズに
+  3. モバイル表示では --content-scale: 0.85 まで縮小
+  
+  利点：
+  - スケール値を1箇所で管理可能
+  - 比率を保ったままサイズ調整が可能
+  - ブログ記事のみに影響し、他のページには影響しない
+  
+  使用方法：
+  font-size: calc(基準サイズ * var(--content-scale))
+*/
+
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
-	--box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-		0 16px 32px rgba(var(--gray), 33%);
+--accent: #2337ff;
+--accent-dark: #000d8a;
+--black: 15, 18, 25;
+--gray: 96, 115, 159;
+--gray-light: 229, 233, 240;
+--gray-dark: 34, 41, 57;
+--gray-gradient: rgba(var(--gray-light), 50%), #fff;
+--box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
+0 16px 32px rgba(var(--gray), 33%);
+--content-scale: 1;  /* デフォルトのスケール値（1 = 100%） */
 }
+
+/* 
+  ブログ記事のフォントサイズ管理
+  - デスクトップ表示では90%サイズ
+  - font-sizeにcalc()を使用することで、スケールの変更が全体に反映される
+*/
+.prose {
+--content-scale: 0.9;  /* ブログ記事用に90%サイズに縮小 */
+font-size: calc(var(--content-scale) * 1rem);
+}
+
+/* 
+  ブログ記事の見出しサイズ調整
+  - 見出しごとに基準となるemサイズを設定
+  - var(--content-scale)との乗算で全体的なバランスを保持
+*/
+.prose h1 { font-size: calc(1.953em * var(--content-scale)); }
+.prose h2 { font-size: calc(1.563em * var(--content-scale)); }
+.prose h3 { font-size: calc(1.25em * var(--content-scale)); }
+.prose h4 { font-size: calc(1em * var(--content-scale)); }
+.prose h5 { font-size: calc(0.875em * var(--content-scale)); }
 @font-face {
 	font-family: 'Atkinson';
 	src: url('/fonts/atkinson-regular.woff') format('woff');
@@ -145,13 +186,22 @@ hr {
 	border: none;
 	border-top: 1px solid rgb(var(--gray-light));
 }
+/* 
+  レスポンシブデザインの調整
+  - モバイル表示（720px以下）では全体的に小さめのサイズに
+  - ブログ記事（.prose）は特に小さめに調整（85%サイズ）
+  - この調整により、モバイル表示でも読みやすさを維持
+*/
 @media (max-width: 720px) {
-	body {
-		font-size: 18px;
-	}
-	main {
-		padding: 1em;
-	}
+body {
+font-size: 18px;
+}
+main {
+padding: 1em;
+}
+.prose {
+--content-scale: 0.85;  /* モバイル表示時は85%サイズに縮小 */
+}
 }
 
 .sr-only {
