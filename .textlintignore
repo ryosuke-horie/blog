@@ -1,0 +1,36 @@
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+.vercel/
+.wrangler/
+
+# Astro cache
+.astro/
+
+# Documentation
+docs/style-guide.md
+
+# Package files
+package.json
+package-lock.json
+
+# Git
+.git/
+.gitignore
+
+# Config files
+*.json
+*.yml
+*.yaml
+*.toml
+
+# Non-markdown files
+*.js
+*.ts
+*.tsx
+*.jsx
+*.css
+*.scss
+*.html

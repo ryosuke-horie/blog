@@ -1,0 +1,29 @@
+{
+  "rules": {
+    "preset-japanese": true,
+    "preset-ja-technical-writing": true,
+    "@textlint-ja/preset-ai-writing": true,
+    "terminology": {
+      "exclude": [
+        "TypeScript",
+        "JavaScript", 
+        "GitHub",
+        "Git",
+        "React",
+        "Vue",
+        "Node.js",
+        "Astro",
+        "Docker",
+        "AWS",
+        "API",
+        "CI/CD",
+        "IDE",
+        "JSON",
+        "HTML",
+        "CSS",
+        "npm",
+        "yarn"
+      ]
+    }
+  }
+}
