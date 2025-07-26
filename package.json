@@ -15,15 +15,15 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.4.1",
-    "astro": "^5.9.1",
+    "astro": "^5.11.1",
     "typescript": "^5.8.3",
-    "wrangler": "^4.16.1"
+    "wrangler": "^4.24.3"
   },
   "devDependencies": {
     "@textlint-ja/textlint-rule-preset-ai-writing": "^1.5.0",
     "textlint": "^15.2.0",
     "textlint-rule-preset-ja-technical-writing": "^12.0.2",
     "textlint-rule-preset-japanese": "^10.0.4",
-    "textlint-rule-terminology": "^5.2.13"
+    "textlint-rule-terminology": "^5.2.14"
   }
 }
