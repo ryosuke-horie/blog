@@ -27,42 +27,7 @@ Claude Codeを使って定型的なプロセスで開発し、PRを上げてCI�
 
 現在実装しているワークフローは以下の通りです。
 
-```mermaid
-graph TD
-    A[開発開始] --> B[開発タスク実行]
-    
-    B --> C[コミット・プッシュ]
-    
-    C --> D[PR作成]
-    
-    D --> E[Claude Code Actionルールベースレビュー]
-    
-    E --> F[インラインコメント]
-    
-    F --> G[reply-review簡略版]
-    
-    G --> H[review-readerエージェント]
-    
-    H --> I[コメント分析と分類]
-    
-    I --> J[フレームワーク専門エージェント]
-    I --> K[git-operationsエージェント]
-    I --> L[review-responderエージェント]
-    
-    J --> M[修正実装]
-    K --> N[Git操作 add commit push]
-    L --> O[レビューへの返信]
-    
-    M --> P[統合処理]
-    N --> P
-    O --> P
-    
-    P --> Q[プッシュ]
-    
-    Q --> R{CI結果}
-    R -->|成功| S[完了]
-    R -->|失敗| T[別途対応]
-```
+![Claude Codeレビュープロセス](/ClaudeCodeレビュープロセス.png)
 
 主な流れ：
 
