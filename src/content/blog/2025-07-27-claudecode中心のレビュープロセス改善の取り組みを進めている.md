@@ -98,6 +98,85 @@ graph TD
 
 長文レビューが見にくかったため、GitHub MCPを使用してインラインレビューを実装しました。
 
+以下のようなGitHub Actionsの設定を使用：
+
+```yaml
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  claude-review:
+    runs-on: self-hosted
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+      id-token: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Code Review
+        id: claude-review
+        uses: anthropics/claude-code-action@beta
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          
+          allowed_tools: "mcp__github__create_pending_pull_request_review,mcp__github__add_pull_request_review_comment_to_pending_review,mcp__github__submit_pending_pull_request_review,mcp__github__get_pull_request_diff"
+          
+          direct_prompt: |
+            このプルリクエスト（PR）をレビューし、GitHub のレビュー機能を使ってフィードバックをしてください。作業は次の手順に沿って進めてください：
+            1.  **レビューを開始する:** `mcp__github__create_pending_pull_request_review` を使って、保留中のレビューを開始します。
+            2.  **変更内容を確認する:** `mcp__github__get_pull_request_diff` を使って、コードの変更点や行番号を把握します。
+            3.  **インラインコメントを追加する:** 改善点や懸念事項があるコードの行には `mcp__github__add_pull_request_review_comment_to_pending_review` を使ってコメントを追加してください。修正方針が明確な場合には積極的にsuggestionを利用してください。
+            4.  **レビューを提出する:** `mcp__github__submit_pending_pull_request_review` を使って、イベントタイプを「COMMENT」に設定してレビューを提出してください。まとめコメントは空文字列("")で構いません（※「REQUEST_CHANGES」は使わないでください）。
+
+            **コメントの書き方に関する重要事項**
+
+            * **インラインコメントの構成:**
+                * **結論を先に:** 各インラインコメントの冒頭で、指摘内容の要点を一行で簡潔に述べてください。
+                * **理由と提案:** 結論の後に、そのように判断した理由や背景、具体的な修正案を詳しく説明してください。
+                * **指摘中心に:** インラインコメントは、修正提案、バグの可能性、可読性の問題など、具体的な改善点に焦点を当ててください。
+
+            * **ポジティブなフィードバックについて:**
+                * **インラインコメントでは禁止:** インラインコメントでは肯定的なコメントは一切残さないでください。改善点や懸念事項の指摘のみに徹してください。
+                * **自動更新コメントのみ使用:** レビュー自体にまとめコメントは不要です。Claude Code Actionが自動的に更新する同一コメント内で全ての情報を提供するため、個別のまとめコメントは記載しないでください。
+
+            * **レビューの観点について:**
+            - CLAUDE.mdのガイドラインに従っているか
+            - バグやセキュリティリスクがないか
+            - 保守性や可読性は十分か
+            - 設計やアーキテクチャに妥当性があるか
+            - コード品質とベストプラクティス
+            - 潜在的なバグや問題
+            - セキュリティの懸念
+            - テストコードが適切に書かれているか
+              - カバレッジが十分か
+              - エッジケースや異常系のテストが含まれているか
+              - テストの品質と信頼性
+              - オーバーテストがないか
+            
+            **重要な再確認事項:**
+            このPRレビューを実施する際は、上記のすべての指示に従ってください。特に以下の点を必ず守ってください：
+            1. インラインコメントは改善点・懸念事項・バグの可能性の指摘のみに限定する（肯定的コメントは一切禁止）
+            2. レビュー提出時のまとめコメントは空文字列("")とし、個別のレビュー完了コメントは投稿しない
+            3. スティッキーコメントが自動更新されるため、それ以外の総括的なコメントは不要
+            4. 各インラインコメントでは結論を先に述べ、その後に理由と具体的な修正案を提示する
+            5. CLAUDE.mdのガイドラインに従っているかを必ず確認する
+            
+            すべてのフィードバックは日本語で、建設的かつ実用的な内容にしてください。
+
+          use_sticky_comment: true
+```
+
+> **💡 補足:** Claude Code Actionによるレビューは実行時間が長くCIの無料枠を消費すると気軽に扱えないため`runs-on: self-hosted`でセルフホストランナーを使用しています。
+
 結果：
 - レビューコメントが該当箇所に直接表示され、見やすくなった
 - しかし、貼り付け作業はより面倒になってしまった
@@ -113,6 +192,99 @@ Claude Codeのカスタムコマンドで、インラインレビューを自動
 ### 4：リプライ機能の追加
 
 カスタムコマンドにレビューへのリプライ機能を追加し、対応状況を可視化しました。
+
+以下のようなカスタムコマンドを作成：
+
+```text
+# インラインレビューコメントの対応と返信
+
+## 目的
+プルリクエストのインラインレビューコメントを以下の手順で対応します：
+1. **各コメントを一つずつ確認** - 未解決のコメントを特定
+2. **修正をプランして実装** - コメント内容に基づいた修正
+3. **各コメントに直接返信** - 対応内容を記載してインラインで返信
+
+## コンテキスト
+以下の MCP ツールと GitHub API を使用します：
+- MCP: `get_pull_request_comments` - レビューコメント一覧の取得
+- GraphQL: レビューコメントのリゾルブ状態確認
+- REST API: `POST /repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies` - コメントへの返信
+
+GitHub CLI での返信実装：
+
+gh api \
+  --method POST \
+  -H "Accept: application/vnd.github+json" \
+  repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies \
+  -f body='{reply_text}'
+
+
+リゾルブ状態の確認（GraphQL）：
+
+query($owner: String!, $repo: String!, $number: Int!) {
+  repository(owner: $owner, name: $repo) {
+    pullRequest(number: $number) {
+      reviewThreads(first: 100) {
+        nodes {
+          id
+          isResolved
+          comments(first: 1) {
+            nodes {
+              id
+              body
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+## 実行内容
+
+引数で指定された PR について、以下を実行してください：
+
+1. **MCP ツールの `get_pull_request_comments` でレビューコメント一覧を取得**
+2. **GraphQL API でリゾルブ状態を確認し、未解決のコメントのみをフィルタリング**
+3. **未解決の各コメントを以下の形式で表示：**
+
+   === コメント #1 ===
+   ファイル: src/main.js (L45)
+   レビュアー: @reviewer1
+   内容: "エラーハンドリングを追加してください"
+   コメントID: 123456789
+   状態: 未解決
+
+4. **各未解決コメントに対して：**
+   - 該当ファイルを開いて修正を実施
+   - 修正が完了したら、GitHub API を使用してコメントに返信
+   - 返信例: "ご指摘ありがとうございます。エラーハンドリングを追加しました。"
+
+5. **すべての修正が完了したら：**
+   - プロジェクトのリント、タイプチェック、テストを実行
+     - CLAUDE.md に記載されているコマンドを使用
+     - または package.json の scripts を確認（`npm run lint`, `npm run typecheck`, `npm run test`）
+     - または Makefile のターゲットを確認
+   - すべてパスすることを確認（失敗したらエラーを表示して中断）
+
+## 実行の要点
+
+このコマンドの核心は以下の3点です：
+
+1. **インラインレビューコメントへの個別対応**
+   - 各コメントを一つずつ確認し、必要な修正を実施
+   - コメント内容を理解し、適切な修正をプラン
+
+2. **GitHub API を使用した直接返信**
+   - 修正完了後、各コメントに対して個別に返信
+   - 対応内容を明確に記載してインラインで返信
+
+3. **品質保証とコミット**
+   - すべてのテスト・リント・型チェックをパス
+   - 対応内容を整理してコミット・プッシュ
+
+**重要**: コンテキストに記載されたAPIとツールを正確に使用し、一件ずつ丁寧に対応することが成功の鍵です。
+```
 
 結果：
 - STEP数が増えたことで動作が不安定に
