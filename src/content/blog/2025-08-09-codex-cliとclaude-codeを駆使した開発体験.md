@@ -1,10 +1,13 @@
 ---
-title: 'Codex CLIとClaude Codeを駆使した開発体験'
-description: '音声入力とAIツールを組み合わせた効率的な個人開発のワークフローについて、実体験を通じて紹介します'
+title: Codex CLIとClaude Codeを駆使した開発体験
+description: 音声入力とAIツールを組み合わせた効率的な個人開発のワークフローについて、実体験を通じて紹介します
 pubDate: 2025-08-09
+heroImage: /ClaudeCode画像.jpeg
 ---
 
 ## はじめに
+
+※音声入力＋ChatGPT＋Claude Codeで書きました。
 
 最近、Codex CLIとClaude Codeを組み合わせて個人開発の効率化に取り組んでいます。これらを活用することで、開発速度が約2倍向上し、より効率的にタスクを進めることができるようになりました。
 
