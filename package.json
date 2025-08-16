@@ -17,7 +17,7 @@
     "@astrojs/sitemap": "^3.4.1",
     "astro": "^5.12.8",
     "typescript": "^5.8.3",
-    "wrangler": "^4.26.0"
+    "wrangler": "^4.28.1"
   },
   "devDependencies": {
     "@textlint-ja/textlint-rule-preset-ai-writing": "^1.6.0",
