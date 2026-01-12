@@ -12,11 +12,11 @@
     "textlint:fix": "textlint --fix 'src/content/blog/**/*.md'"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/rss": "^4.0.12",
-    "@astrojs/sitemap": "^3.5.0",
-    "astro": "^5.15.9",
-    "typescript": "^5.9.2",
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/rss": "^4.0.14",
+    "@astrojs/sitemap": "^3.6.1",
+    "astro": "^5.16.8",
+    "typescript": "^5.9.3",
     "wrangler": "^4.30.0"
   },
   "devDependencies": {
