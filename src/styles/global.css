@@ -112,6 +112,13 @@ font-size: 1.563em; /* 旧h4サイズ */
 /* blogポスト用 */
 .prose h2 {
   font-size: 1.5rem;
+  border-bottom: 1px solid var(--olive);
+  padding-bottom: 0.3em;
+}
+.prose h2::before {
+  content: "## ";
+  color: var(--accent);
+  margin-right: 0.3em;
 }
 h3 {
 font-size: 1.25em; /* 旧h5サイズ */
@@ -119,6 +126,13 @@ font-size: 1.25em; /* 旧h5サイズ */
 /* blogポスト用 */
 .prose h3 {
   font-size: 1.25rem;
+  border-bottom: 0.5px solid var(--olive);
+  padding-bottom: 0.3em;
+}
+.prose h3::before {
+  content: "### ";
+  color: var(--accent);
+  margin-right: 0.3em;
 }
 h4 {
 font-size: 1.0em; /* 基本サイズと同じ */
