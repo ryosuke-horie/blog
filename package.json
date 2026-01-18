@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "textlint": "textlint 'src/content/blog/**/*.md'",
-    "textlint:fix": "textlint --fix 'src/content/blog/**/*.md'"
+    "textlint:fix": "textlint --fix 'src/content/blog/**/*.md'",
+    "new": "node scripts/new-post.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",

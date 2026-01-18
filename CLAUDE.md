@@ -12,6 +12,8 @@ Astroベースの個人技術ブログサイト。Markdownでブログコンテ�
 - **ブログコンテンツの配置**: `src/content/blog/` ディレクトリ以下
 - **ブログファイル名規則**: `YYYY-MM-DD-タイトル.md` 形式
 - **Front Matter CMS設定**: `frontmatter.json` で管理
+- **ブランチ命名規則**: `edg-XXX` 形式（LinearのイシューIDのみ、説明は不要）
+- **不明点がある場合**: AskUserQuestionツールを使用して質問すること（推測で進めない）
 
 ## ブログ記事執筆に関する重要なルール
 
