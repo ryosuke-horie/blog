@@ -7,8 +7,6 @@ description: ClaudeCodeActionを個人開発で使うようになってきた
 heroImage: /ClaudeCode画像.jpeg
 ---
 
-# Claude Code Actionで個人開発を加速させる - IssueとPRの効果的な活用術
-
 ## はじめに
 
 この記事では、個人開発プロジェクトでAIツール「Claude Code Action」をどのように活用し、開発プロセスを改善しているかについて、具体的な事例を交えて紹介します。

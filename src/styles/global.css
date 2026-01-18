@@ -24,16 +24,18 @@
 */
 
 :root {
---accent: #2337ff;
---accent-dark: #000d8a;
---black: 15, 18, 25;
---gray: 96, 115, 159;
---gray-light: 229, 233, 240;
---gray-dark: 34, 41, 57;
---gray-gradient: rgba(var(--gray-light), 50%), #fff;
+--accent: #3d5a3d;
+--accent-dark: #2a3f2a;
+--accent-light: #5c7a5c;
+--olive: #6b7a4d;
+--black: 25, 25, 25;
+--gray: 95, 95, 95;
+--gray-light: 235, 235, 235;
+--gray-dark: 45, 45, 45;
+--gray-gradient: rgba(235, 235, 235, 50%), #fff;
 --box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
 0 16px 32px rgba(var(--gray), 33%);
---content-scale: 1;  /* デフォルトのスケール値（1 = 100%） */
+--content-scale: 1;
 }
 
 /* 
@@ -56,6 +58,9 @@ font-size: calc(var(--content-scale) * 1rem);
 .prose h3 { font-size: calc(1.25em * var(--content-scale)); }
 .prose h4 { font-size: calc(1em * var(--content-scale)); }
 .prose h5 { font-size: calc(0.875em * var(--content-scale)); }
+html {
+	background: #fff;
+}
 @font-face {
 	font-family: 'Atkinson';
 	src: url('/fonts/atkinson-regular.woff') format('woff');
@@ -75,8 +80,7 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
+	background: #fff;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
@@ -108,6 +112,13 @@ font-size: 1.563em; /* 旧h4サイズ */
 /* blogポスト用 */
 .prose h2 {
   font-size: 1.5rem;
+  border-bottom: 1px solid var(--olive);
+  padding-bottom: 0.3em;
+}
+.prose h2::before {
+  content: "## ";
+  color: var(--accent);
+  margin-right: 0.3em;
 }
 h3 {
 font-size: 1.25em; /* 旧h5サイズ */
@@ -115,6 +126,13 @@ font-size: 1.25em; /* 旧h5サイズ */
 /* blogポスト用 */
 .prose h3 {
   font-size: 1.25rem;
+  border-bottom: 0.5px solid var(--olive);
+  padding-bottom: 0.3em;
+}
+.prose h3::before {
+  content: "### ";
+  color: var(--accent);
+  margin-right: 0.3em;
 }
 h4 {
 font-size: 1.0em; /* 基本サイズと同じ */
@@ -177,7 +195,7 @@ pre > code {
 	all: unset;
 }
 blockquote {
-	border-left: 4px solid var(--accent);
+	border-left: 4px solid var(--olive);
 	padding: 0 0 0 20px;
 	margin: 0px;
 	font-size: 1.333em;
