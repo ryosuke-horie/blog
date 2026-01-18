@@ -1,5 +1,5 @@
 import { createInterface } from 'node:readline';
-import { writeFileSync } from 'node:fs';
+import { writeFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const rl = createInterface({
@@ -25,6 +25,15 @@ function getISODate() {
   return new Date().toISOString();
 }
 
+function getImages() {
+  const publicDir = join(process.cwd(), 'public');
+  const files = readdirSync(publicDir);
+  const imageExtensions = ['.png', '.jpg', '.jpeg', '.webp', '.gif'];
+  return files.filter((file) =>
+    imageExtensions.some((ext) => file.toLowerCase().endsWith(ext))
+  );
+}
+
 async function main() {
   const title = await question('? 記事のタイトルを入力してください: ');
 
@@ -34,6 +43,23 @@ async function main() {
     process.exit(1);
   }
 
+  // 画像選択
+  const images = getImages();
+  console.log('\n? heroImageを選択してください (空エンターでスキップ):');
+  images.forEach((img, i) => {
+    console.log(`  ${i + 1}. ${img}`);
+  });
+
+  const imageChoice = await question('\n番号を入力: ');
+  let heroImage = '';
+
+  if (imageChoice.trim()) {
+    const index = parseInt(imageChoice.trim(), 10) - 1;
+    if (index >= 0 && index < images.length) {
+      heroImage = `/${images[index]}`;
+    }
+  }
+
   const date = getFormattedDate();
   const filename = `${date}-${title.trim()}.md`;
   const filepath = join(process.cwd(), 'src', 'content', 'blog', filename);
@@ -41,6 +67,7 @@ async function main() {
   const frontmatter = `---
 title: ${title.trim()}
 pubDate: ${getISODate()}
+heroImage: ${heroImage}
 ---
 
 `;
