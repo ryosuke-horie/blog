@@ -28,13 +28,13 @@ All commands are run from the root of the project, from a terminal:
 | `npm run dev`             | Starts local dev server at `localhost:4321`      |
 | `npm run build`           | Build your production site to `./dist/`          |
 | `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run new-post`        | Create a new blog post                           |
+| `npm run new`             | Create a new blog post                           |
 | `npm run textlint`        | Check Japanese text with TextLint                |
 
 ## 記事の作成方法
 
 ```bash
-npm run new-post
+npm run new
 ```
 
 1. タイトルを入力
