@@ -7,19 +7,18 @@ import FormattedDate from "../components/FormattedDate.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, pubDate, updatedDate } = Astro.props;
 ---
 
 <html lang="ja">
     <head>
-        <BaseHead title={title} description={title} image={heroImage} />
+        <BaseHead title={title} description={title} />
         <style>
             main {
                 width: calc(100% - 2em);
                 max-width: 100%;
                 margin: 0;
             }
-            /* .hero-image styles are now applied within .title */
             .prose {
                 width: 720px;
                 max-width: calc(100% - 2em);
@@ -33,29 +32,7 @@ const { title, pubDate, updatedDate, heroImage } = Astro.props;
             .title {
                 margin-bottom: 1em;
                 padding: 1em 0;
-                /* text-align: center; */ /* Removed */
                 line-height: 1;
-                display: flex; /* Added */
-                align-items: center; /* Added */
-            }
-            .title .hero-image {
-                /* Style for image container inside title */
-                margin-right: 1em;
-                flex-shrink: 0;
-            }
-            .title .hero-image img {
-                /* Style for image inside title */
-                max-width: 80px; /* Make image smaller */
-                width: 100%;
-                /* opacity: 0.8; */ /* Opacity removed for now */
-                border-radius: 8px;
-                box-shadow: var(--box-shadow);
-                vertical-align: middle; /* Helps alignment */
-            }
-            .title-content {
-                /* New container for date/h1 */
-                flex-grow: 1;
-                text-align: left; /* Align text left */
             }
             .title h1 {
                 margin: 0 0 0.5em 0;
@@ -77,35 +54,19 @@ const { title, pubDate, updatedDate, heroImage } = Astro.props;
             <article>
                 <div class="prose">
                     <div class="title">
-                        {/* Moved hero image here */}
-                        {
-                            heroImage && (
-                                <div class="hero-image">
-                                    <img
-                                        width={1020}
-                                        height={510}
-                                        src={heroImage}
-                                        alt=""
-                                    />
-                                </div>
-                            )
-                        }
-                        {/* Added title-content wrapper */}
-                        <div class="title-content">
-                            <div class="date">
-                                <FormattedDate date={pubDate} />
-                                {
-                                    updatedDate && (
-                                        <div class="last-updated-on">
-                                            Last updated on{" "}
-                                            <FormattedDate date={updatedDate} />
-                                        </div>
-                                    )
-                                }
-                            </div>
-                            <h1>{title}</h1>
-                            <hr />
+                        <div class="date">
+                            <FormattedDate date={pubDate} />
+                            {
+                                updatedDate && (
+                                    <div class="last-updated-on">
+                                        Last updated on{" "}
+                                        <FormattedDate date={updatedDate} />
+                                    </div>
+                                )
+                            }
                         </div>
+                        <h1>{title}</h1>
+                        <hr />
                     </div>
                     <slot />
                 </div>
