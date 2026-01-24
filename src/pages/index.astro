@@ -4,11 +4,33 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
-import FormattedDate from "../components/FormattedDate.astro";
 
 const posts = (await getCollection("blog")).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+// 年ごとにグループ化
+const postsByYear = posts.reduce(
+    (acc, post) => {
+        const year = post.data.pubDate.getFullYear();
+        if (!acc[year]) acc[year] = [];
+        acc[year].push(post);
+        return acc;
+    },
+    {} as Record<number, typeof posts>,
+);
+
+const years = Object.keys(postsByYear)
+    .map(Number)
+    .sort((a, b) => b - a);
+
+// 日付をフォーマットする関数
+const formatDate = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+};
 ---
 
 <!doctype html>
@@ -19,106 +41,83 @@ const posts = (await getCollection("blog")).sort(
             main {
                 width: 960px;
             }
+            .year-section {
+                margin-bottom: 2rem;
+            }
+            .year-heading {
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin: 0 0 1rem 0;
+                color: rgb(var(--black));
+                border-bottom: 1px solid rgb(var(--gray-light));
+                padding-bottom: 0.5rem;
+            }
             ul {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 2rem;
                 list-style-type: none;
                 margin: 0;
                 padding: 0;
             }
             ul li {
-                /* 3列表示になるように幅を調整 (gap: 2rem を考慮) */
-                width: calc(33.33% - 1.34rem);
-            }
-            ul li * {
-                text-decoration: none;
-                transition: 0.2s ease;
-            }
-            /* ul li:first-child {
-                width: 100%;  <- 3列表示のため削除
-                margin-bottom: 1rem;
-                text-align: center;
-            } */
-            ul li:first-child img {
-                /* width: 100%; <- first-childの特別扱いをやめるため削除しても良いが、影響なければ残す */
-            }
-            /* ul li:first-child .title {
-                font-size: 2.369rem; <- 最初の投稿のタイトルを特別扱いしないため削除
-            } */
-            ul li img {
-                height: 150px; /* 固定の高さを設定 */
-                object-fit: cover; /* 比率を保ちつつ領域を埋める */
                 margin-bottom: 0.5rem;
-                border-radius: 12px;
-                flex-shrink: 0; /* 画像が縮まないようにする */
             }
             ul li a {
-                display: flex; /* Flexコンテナにする */
-                flex-direction: column; /* 子要素を縦に並べる */
-                height: 100%; /* liの高さいっぱいに広げる */
-            }
-            .title {
-                flex-grow: 1; /* タイトル部分が残りのスペースを埋める */
-                margin: 0 0 0.25rem 0; /* 下マージンを少し追加 */
+                display: inline-block;
+                text-decoration: none;
                 color: rgb(var(--black));
-                line-height: 1;
+                transition: color 0.2s ease;
             }
-            .date {
-                margin: 0;
-                color: rgb(var(--gray));
-            }
-            ul li a:hover h4,
-            ul li a:hover .date {
+            ul li a:hover {
                 color: rgb(var(--accent));
             }
-            ul a:hover img {
-                box-shadow: var(--box-shadow);
+            .date {
+                color: rgb(var(--gray));
+                font-family: monospace;
+                margin-right: 1rem;
+            }
+            .title {
+                color: inherit;
             }
             @media (max-width: 720px) {
-                ul {
-                    gap: 0.5em;
+                .year-section {
+                    margin-bottom: 1.5rem;
                 }
                 ul li {
-                    width: 100%;
-                    text-align: center;
+                    margin-bottom: 0.75rem;
                 }
-                ul li:first-child {
-                    margin-bottom: 0;
+                ul li a {
+                    display: block;
                 }
-                /* ul li:first-child .title {
-                    font-size: 1.563em; <- モバイルでも最初の投稿のタイトルを特別扱いしないため削除
-                } */
+                .date {
+                    display: block;
+                    margin-bottom: 0.25rem;
+                }
             }
         </style>
     </head>
     <body>
         <Header />
         <main>
-            <section>
-                <ul>
-                    {
-                        posts.map((post) => (
-                            <li>
-                                <a href={`/${post.slug}/`}>
-                                    <img
-                                        width={720}
-                                        height={360}
-                                        src={post.data.heroImage}
-                                        alt=""
-                                    />
-                                    <h4 class="title">{post.data.title}</h4>
-                                    <p class="date">
-                                        <FormattedDate
-                                            date={post.data.pubDate}
-                                        />
-                                    </p>
-                                </a>
-                            </li>
-                        ))
-                    }
-                </ul>
-            </section>
+            {
+                years.map((year) => (
+                    <section class="year-section">
+                        <h2 class="year-heading">{year}</h2>
+                        <ul>
+                            {postsByYear[year].map((post) => (
+                                <li>
+                                    <a href={`/${post.slug}/`}>
+                                        <span class="date">
+                                            {formatDate(post.data.pubDate)}
+                                        </span>
+                                        <span class="title">
+                                            {post.data.title}
+                                        </span>
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                ))
+            }
         </main>
         <Footer />
     </body>
