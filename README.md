@@ -41,3 +41,20 @@ npm run new
 2. heroImage（アイキャッチ画像）を番号で選択（空エンターでスキップ）
 3. `src/content/blog/YYYY-MM-DD-タイトル.md` が生成される
 4. 生成されたファイルを開いて本文を書く
+
+## 外部記事（Zenn/Qiita）の追加方法
+
+ZennやQiitaに投稿した記事をトップページに表示できます。
+
+1. `src/content/external/` に `YYYY-MM-DD-タイトル.md` 形式でファイル作成
+2. Front Matterを記述:
+   ```yaml
+   ---
+   title: 記事タイトル
+   pubDate: 2025-01-24
+   url: https://zenn.dev/xxx/articles/xxx
+   platform: zenn
+   ---
+   ```
+3. `platform` は `zenn` / `qiita` / `other` から選択
+4. トップページで自分のブログ記事と時系列で混在表示されます

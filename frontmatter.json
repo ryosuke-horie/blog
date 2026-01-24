@@ -30,6 +30,37 @@
           "isPreviewImage": true
         }
       ]
+    },
+    {
+      "name": "external",
+      "pageBundle": false,
+      "clearEmpty": true,
+      "fields": [
+        {
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "name": "pubDate",
+          "type": "datetime",
+          "default": "{{now}}",
+          "required": true
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "name": "platform",
+          "type": "choice",
+          "choices": ["zenn", "qiita", "other"],
+          "required": true
+        }
+      ]
     }
   ],
   "frontMatter.framework.id": "astro",
@@ -40,6 +71,13 @@
       "path": "[[workspace]]/src/content/blog",
       "contentTypes": [
         "blog"
+      ]
+    },
+    {
+      "title": "external",
+      "path": "[[workspace]]/src/content/external",
+      "contentTypes": [
+        "external"
       ]
     }
   ],

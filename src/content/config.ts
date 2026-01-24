@@ -12,4 +12,14 @@ const blog = defineCollection({
 	}),
 });
 
-export const collections = { blog };
+const external = defineCollection({
+	type: 'content',
+	schema: z.object({
+		title: z.string(),
+		pubDate: z.coerce.date(),
+		url: z.string().url(),
+		platform: z.enum(['zenn', 'qiita', 'other']),
+	}),
+});
+
+export const collections = { blog, external };

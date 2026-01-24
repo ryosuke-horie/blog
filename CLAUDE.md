@@ -59,12 +59,18 @@ npm run textlint:fix
 
 ### コンテンツ管理
 - **ブログ記事**: `src/content/blog/*.md` - Front Matterで管理されたMarkdownファイル
-- **必須Front Matter項目**:
+- **外部記事**: `src/content/external/*.md` - Zenn/Qiitaなど外部プラットフォームの記事リンク
+- **必須Front Matter項目（ブログ記事）**:
   - `title`: 記事タイトル
   - `description`: 記事の説明文
   - `pubDate`: 公開日（日付型）
   - `updatedDate`: 更新日（オプション）
   - `heroImage`: ヒーロー画像パス（オプション、`/public/`からの相対パス）
+- **必須Front Matter項目（外部記事）**:
+  - `title`: 記事タイトル
+  - `pubDate`: 公開日（日付型）
+  - `url`: 外部記事のURL
+  - `platform`: `zenn` / `qiita` / `other` のいずれか
 
 ### ページ構成
 - `src/pages/index.astro`: トップページ（ブログ記事一覧、3列グリッドレイアウト）
@@ -95,6 +101,25 @@ npm run textlint:fix
 3. `npm run textlint` で文章チェック
 4. `npm run build` でビルド確認
 5. GitHubにプッシュすると自動デプロイ
+
+## 外部記事（Zenn/Qiita）の追加方法
+
+ZennやQiitaなど外部プラットフォームに投稿した記事をトップページに表示できる。
+
+1. `src/content/external/` に `YYYY-MM-DD-タイトル.md` 形式でファイル作成
+2. 以下のFront Matterを記述:
+   ```yaml
+   ---
+   title: 記事タイトル
+   pubDate: 2025-01-24
+   url: https://zenn.dev/xxx/articles/xxx
+   platform: zenn
+   ---
+   ```
+3. `platform` は `zenn` / `qiita` / `other` から選択
+4. 本文は空でもよい（メモとして使用可能）
+5. トップページで自分のブログ記事と時系列で混在表示される
+6. 外部記事は `↗` アイコンとプラットフォームタグ付きで表示
 
 ## 画像の扱い
 

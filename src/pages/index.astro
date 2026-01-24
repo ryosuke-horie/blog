@@ -5,19 +5,44 @@ import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 
-const posts = (await getCollection("blog")).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+type Post = {
+    type: "blog" | "external";
+    slug: string;
+    title: string;
+    pubDate: Date;
+    url?: string;
+    platform?: "zenn" | "qiita" | "other";
+};
+
+const blogPosts = await getCollection("blog");
+const externalPosts = await getCollection("external");
+
+const allPosts: Post[] = [
+    ...blogPosts.map((post) => ({
+        type: "blog" as const,
+        slug: post.slug,
+        title: post.data.title,
+        pubDate: post.data.pubDate,
+    })),
+    ...externalPosts.map((post) => ({
+        type: "external" as const,
+        slug: post.slug,
+        title: post.data.title,
+        pubDate: post.data.pubDate,
+        url: post.data.url,
+        platform: post.data.platform,
+    })),
+].sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf());
 
 // 年ごとにグループ化
-const postsByYear = posts.reduce(
+const postsByYear = allPosts.reduce(
     (acc, post) => {
-        const year = post.data.pubDate.getFullYear();
+        const year = post.pubDate.getFullYear();
         if (!acc[year]) acc[year] = [];
         acc[year].push(post);
         return acc;
     },
-    {} as Record<number, typeof posts>,
+    {} as Record<number, Post[]>,
 );
 
 const years = Object.keys(postsByYear)
@@ -30,6 +55,13 @@ const formatDate = (date: Date) => {
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
+};
+
+// プラットフォーム表示名
+const platformLabels: Record<string, string> = {
+    zenn: "Zenn",
+    qiita: "Qiita",
+    other: "External",
 };
 ---
 
@@ -77,6 +109,30 @@ const formatDate = (date: Date) => {
             .title {
                 color: inherit;
             }
+            .platform-tag {
+                font-size: 0.75rem;
+                padding: 0.125rem 0.375rem;
+                border-radius: 3px;
+                margin-left: 0.5rem;
+                font-weight: 500;
+            }
+            .platform-zenn {
+                background-color: #3ea8ff;
+                color: white;
+            }
+            .platform-qiita {
+                background-color: #55c500;
+                color: white;
+            }
+            .platform-other {
+                background-color: rgb(var(--gray));
+                color: white;
+            }
+            .external-icon {
+                font-size: 0.75rem;
+                margin-left: 0.25rem;
+                opacity: 0.7;
+            }
             @media (max-width: 720px) {
                 .year-section {
                     margin-bottom: 1.5rem;
@@ -104,14 +160,37 @@ const formatDate = (date: Date) => {
                         <ul>
                             {postsByYear[year].map((post) => (
                                 <li>
-                                    <a href={`/${post.slug}/`}>
-                                        <span class="date">
-                                            {formatDate(post.data.pubDate)}
-                                        </span>
-                                        <span class="title">
-                                            {post.data.title}
-                                        </span>
-                                    </a>
+                                    {post.type === "blog" ? (
+                                        <a href={`/${post.slug}/`}>
+                                            <span class="date">
+                                                {formatDate(post.pubDate)}
+                                            </span>
+                                            <span class="title">
+                                                {post.title}
+                                            </span>
+                                        </a>
+                                    ) : (
+                                        <a
+                                            href={post.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <span class="date">
+                                                {formatDate(post.pubDate)}
+                                            </span>
+                                            <span class="title">
+                                                {post.title}
+                                            </span>
+                                            <span class="external-icon">↗</span>
+                                            {post.platform && (
+                                                <span
+                                                    class={`platform-tag platform-${post.platform}`}
+                                                >
+                                                    {platformLabels[post.platform]}
+                                                </span>
+                                            )}
+                                        </a>
+                                    )}
                                 </li>
                             ))}
                         </ul>
