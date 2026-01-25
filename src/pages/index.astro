@@ -11,7 +11,7 @@ type Post = {
     title: string;
     pubDate: Date;
     url?: string;
-    platform?: "zenn" | "qiita" | "other";
+    platform?: "zenn" | "qiita" | "speakerdeck" | "other";
 };
 
 const blogPosts = await getCollection("blog");
@@ -61,6 +61,7 @@ const formatDate = (date: Date) => {
 const platformLabels: Record<string, string> = {
     zenn: "Zenn",
     qiita: "Qiita",
+    speakerdeck: "SpeakerDeck",
     other: "External",
 };
 ---
@@ -75,14 +76,38 @@ const platformLabels: Record<string, string> = {
             }
             .year-section {
                 margin-bottom: 2rem;
+                border-bottom: 1px solid rgb(var(--gray-light));
             }
             .year-heading {
                 font-size: 1.5rem;
                 font-weight: bold;
                 margin: 0 0 1rem 0;
+                padding: 0.5rem 0;
                 color: rgb(var(--black));
-                border-bottom: 1px solid rgb(var(--gray-light));
-                padding-bottom: 0.5rem;
+                cursor: pointer;
+                list-style: none;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .year-heading::-webkit-details-marker {
+                display: none;
+            }
+            .year-heading::before {
+                content: "▶";
+                font-size: 0.75rem;
+                transition: transform 0.2s ease;
+            }
+            .year-section[open] > .year-heading::before {
+                transform: rotate(90deg);
+            }
+            .year-heading:hover {
+                color: rgb(var(--accent));
+            }
+            .post-count {
+                font-size: 0.875rem;
+                font-weight: normal;
+                color: rgb(var(--gray));
             }
             ul {
                 list-style-type: none;
@@ -124,6 +149,10 @@ const platformLabels: Record<string, string> = {
                 background-color: #55c500;
                 color: white;
             }
+            .platform-speakerdeck {
+                background-color: #009287;
+                color: white;
+            }
             .platform-other {
                 background-color: rgb(var(--gray));
                 color: white;
@@ -155,8 +184,11 @@ const platformLabels: Record<string, string> = {
         <main>
             {
                 years.map((year) => (
-                    <section class="year-section">
-                        <h2 class="year-heading">{year}</h2>
+                    <details class="year-section" open>
+                        <summary class="year-heading">
+                            {year}
+                            <span class="post-count">({postsByYear[year].length}件)</span>
+                        </summary>
                         <ul>
                             {postsByYear[year].map((post) => (
                                 <li>
@@ -194,7 +226,7 @@ const platformLabels: Record<string, string> = {
                                 </li>
                             ))}
                         </ul>
-                    </section>
+                    </details>
                 ))
             }
         </main>
