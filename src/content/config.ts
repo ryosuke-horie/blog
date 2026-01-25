@@ -18,7 +18,7 @@ const external = defineCollection({
 		title: z.string(),
 		pubDate: z.coerce.date(),
 		url: z.string().url(),
-		platform: z.enum(['zenn', 'qiita', 'other']),
+		platform: z.enum(['zenn', 'qiita', 'speakerdeck', 'other']),
 	}),
 });
 
