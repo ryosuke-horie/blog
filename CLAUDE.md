@@ -32,7 +32,6 @@ Astroベースの個人技術ブログサイト。Markdownでブログコンテ�
 - **許可されている支援**:
   - ブログ記事ファイルの作成（Front Matterのテンプレート提供のみ）
   - フォーマットや構造の修正
-  - TextLintエラーの確認と修正提案
   - 技術的な設定やビルドのサポート
 
 - **許可されていない行為**:
@@ -51,12 +50,6 @@ npm run build
 
 # ビルド結果のプレビュー
 npm run preview
-
-# TextLintによる日本語文章チェック
-npm run textlint
-
-# TextLintによる自動修正
-npm run textlint:fix
 ```
 
 ## アーキテクチャ構成
@@ -84,13 +77,6 @@ npm run textlint:fix
 - グローバルスタイル: `src/styles/global.css`
 - レスポンシブ対応: 720px以下でモバイル表示（1列レイアウト）
 - ブログ記事内画像: 最大幅80%、中央揃え
-
-### TextLint設定
-`textlint` コマンドは日本語の技術ブログ向けに設定済み:
-- `preset-japanese`: 日本語の基本的な校正
-- `preset-ja-technical-writing`: 技術文書向けの日本語校正
-- `@textlint-ja/preset-ai-writing`: AI生成文章の改善
-- 技術用語（TypeScript、GitHub等）は除外設定済み
 
 ### デプロイ設定
 - **Cloudflare Workers**: `wrangler.jsonc` で設定
