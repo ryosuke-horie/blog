@@ -66,7 +66,6 @@ npm run textlint:fix
 - **外部記事**: `src/content/external/*.md` - Zenn/Qiitaなど外部プラットフォームの記事リンク
 - **必須Front Matter項目（ブログ記事）**:
   - `title`: 記事タイトル
-  - `description`: 記事の説明文
   - `pubDate`: 公開日（日付型）
   - `updatedDate`: 更新日（オプション）
   - `heroImage`: ヒーロー画像パス（オプション、`/public/`からの相対パス）
@@ -101,10 +100,9 @@ npm run textlint:fix
 ## ブログ記事の追加方法
 
 1. `src/content/blog/` に `YYYY-MM-DD-タイトル.md` 形式でファイル作成
-2. Front Matterを記述（title、description、pubDateは必須）
-3. `npm run textlint` で文章チェック
-4. `npm run build` でビルド確認
-5. GitHubにプッシュすると自動デプロイ
+2. Front Matterを記述（title、pubDateは必須）
+3. `npm run build` でビルド確認
+4. GitHubにプッシュすると自動デプロイ
 
 ## 外部記事（Zenn/Qiita）の追加方法
 
