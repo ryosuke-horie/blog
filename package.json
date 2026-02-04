@@ -8,9 +8,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "textlint": "textlint 'src/content/blog/**/*.md'",
-    "textlint:fix": "textlint --fix 'src/content/blog/**/*.md'",
-    "new": "node scripts/new-post.js"
+"new": "node scripts/new-post.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
@@ -20,11 +18,5 @@
     "typescript": "^5.9.3",
     "wrangler": "^4.59.2"
   },
-  "devDependencies": {
-    "@textlint-ja/textlint-rule-preset-ai-writing": "^1.6.1",
-    "textlint": "^15.5.0",
-    "textlint-rule-preset-ja-technical-writing": "^12.0.2",
-    "textlint-rule-preset-japanese": "^10.0.4",
-    "textlint-rule-terminology": "^5.2.16"
-  }
+  "devDependencies": {}
 }
