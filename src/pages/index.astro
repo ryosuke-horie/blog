@@ -94,12 +94,12 @@ const platformLabels: Record<string, string> = {
                 display: none;
             }
             .year-heading::before {
-                content: "▶";
-                font-size: 0.75rem;
+                content: "▼";
+                font-size: 0.6rem;
                 transition: transform 0.2s ease;
             }
             .year-section[open] > .year-heading::before {
-                transform: rotate(90deg);
+                transform: rotate(180deg);
             }
             .year-heading:hover {
                 color: rgb(var(--accent));
