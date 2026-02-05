@@ -22,47 +22,12 @@ Unicode文字（▶、▼など）やSVGの代わりに、CSSのborder trickを�
 
 ### アコーディオン開閉アイコン
 
-**パターン**: `▶` → `▼`（右向き→下向き）が一般的
+**パターン**: `▶` → `▼`（右向き→下向き）
 
 - macOS Finder、VS Code等で広く使われるパターン
 - 「展開方向」を示す（下に開くから下向き）
 
-**CSS実装**:
-
-```css
-/* 閉じている時: 右向き三角形 */
-.accordion-icon::before {
-    content: "";
-    display: inline-block;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    border-left: 6px solid currentColor;
-    transition: transform 0.2s ease;
-}
-
-/* 開いている時: 90度回転して下向き */
-.accordion[open] > .accordion-icon::before {
-    transform: rotate(90deg);
-}
-```
-
-### その他のCSS Border アイコン例
-
-**下向き三角形**:
-```css
-border-left: 5px solid transparent;
-border-right: 5px solid transparent;
-border-top: 6px solid currentColor;
-```
-
-**チェックマーク**:
-```css
-width: 0.5em;
-height: 0.25em;
-border-left: 2px solid currentColor;
-border-bottom: 2px solid currentColor;
-transform: rotate(-45deg);
-```
+**実装例**: `src/pages/index.astro` の `.year-heading::before` を参照
 
 ## スタイリング原則
 
