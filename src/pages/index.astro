@@ -94,8 +94,11 @@ const platformLabels: Record<string, string> = {
                 display: none;
             }
             .year-heading::before {
-                content: "▶";
-                font-size: 0.75rem;
+                content: "";
+                display: inline-block;
+                border-top: 5px solid transparent;
+                border-bottom: 5px solid transparent;
+                border-left: 6px solid currentColor;
                 transition: transform 0.2s ease;
             }
             .year-section[open] > .year-heading::before {
