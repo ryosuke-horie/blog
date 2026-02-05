@@ -1,7 +1,7 @@
 ---
 name: design-guidelines
 description: このプロジェクトのUIコンポーネント実装ガイドライン。アイコン、アコーディオン、スタイリングについて実装する際に参照。
-user-invocable: true
+user-invocable: false
 ---
 
 # デザインガイドライン
